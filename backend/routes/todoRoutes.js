@@ -1,11 +1,12 @@
 import { Router } from "express";
+import { CreateTodo, GetTodo, UpdateTodo } from "../controllers/todoController.js";
 
 const router = Router()
 
-router.post("/todo",createTodo)
+router.post("/todo", CreateTodo)
 
-router.get("/todos",getTodo)
+router.get("/todos", GetTodo)
 
-router.put("/completed",markTodo)
+router.put("/completed", UpdateTodo)
 
-export {router}
+export { router }
