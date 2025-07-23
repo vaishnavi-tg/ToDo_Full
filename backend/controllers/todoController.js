@@ -1,11 +1,11 @@
 import { ToDo } from "../models/todoModel.js"
-import { createTodo } from "../types.js"
+import { createTodo, updateTodo } from "../types.js"
 
 const CreateTodo = async (req, res) => {
     const createPayload = req.body
     const parsedPayload = createTodo.safeParse(createPayload)
 
-    if (!parsedPayload.sucess) {
+    if (!parsedPayload.success) {
         return res.status(411).json({
             msg: "Incorrect Inputs"
         })
@@ -20,30 +20,29 @@ const CreateTodo = async (req, res) => {
     })
 }
 
-const GetTodo = async () => {
+const GetTodo = async (req, res) => {
     const todos = await ToDo.find({})
-
-    res.json({
+    return res.json({
         todos
     })
 }
 
-const UpdateTodo = async () => {
+const UpdateTodo = async (req, res) => {
     const updatePayload = req.body
     const parsedPayload = updateTodo.safeParse(updatePayload)
 
-    if (!parsedPayload.sucess) {
+    if (!parsedPayload.success) {
         return res.status(411).json({
             msg: "Incorrect Inputs"
         })
     }
-    await ToDo.update({
+    await ToDo.updateOne({
         _id: req.body.id
     }, {
         completed: true
     })
     res.json({
-        msg  : "Todo marked as completed"
+        msg: "Todo marked as completed"
     })
 }
 
